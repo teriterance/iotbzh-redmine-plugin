@@ -857,6 +857,7 @@ function keepAnchorOnSignIn(form){
   return true;
 }
 
+
 $(document).ready(setupAjaxIndicator);
 $(document).ready(hideOnLoad);
 $(document).ready(addFormObserversForDoubleSubmit);
