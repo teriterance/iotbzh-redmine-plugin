@@ -28,6 +28,7 @@
     <% end %>
     <%= button_tag "Cancel", onclick: "hidde();"%> 
 </div>
+<%if false%>
 <div >
     <button id = "button_users" onclick = "showUserList()"> User times entry </button>
     <%= form_for @time_entry, url: {action: "other_user"}, html: {class: "formulaire"} do |f| %>
@@ -38,7 +39,7 @@
         <% end %>
         </div>
 </div>
-
+<%end%>
 
 <div class="easytt_view_title_row">
     <%= link_to "<<", controller: "easytt", action: "index", :viewtype => @view.type, :refdate => @view.previous_date %>

@@ -92,6 +92,12 @@
 .required{
     color: red;
 }
+.imagedele{
+
+}
+.imageEdit{
+    background-image: url(/images/edit.png);
+}
 .localimage{
-    
+    position: relative;
 }

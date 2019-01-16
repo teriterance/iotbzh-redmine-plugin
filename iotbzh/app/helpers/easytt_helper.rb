@@ -129,19 +129,20 @@ module EasyttHelper
                     total_hours += entry.hours
                     html += "\t\t\t\t<div class=\"easytt_timeslot " + style
                     html += "\" style=\"height: " + height + "px; line-height: " + height + "px;\">"
-                    html += "<span class =\"localimage\"><a class = \"icon-only icon-del\" href=\"/easytt/delete/"+entry.id.to_s+"\" data-confirm =\"do you want to destroy this entry ?\"></a></span>"
-                    html += "<span class =\"localimage\"><a class = \"icon-only icon-edit\" href=\"#\"  onclick = 'edit("+entry.to_json+")'></a></span>"
+                    html += "<span class =\"localimage\"><a style = \"top: 0px; float:right;\" href=\"/easytt/delete/"+entry.id.to_s+"\" data-confirm =\"do you want to destroy this entry ?\"><img style = \"top: 0px; float:right;\" src= \"/images/delete.png\"> </a></span>"
+                    html += "<span class =\"localimage\"><a style = \"top: 0px; float:right;\" href=\"#\"  onclick = 'edit("+entry.to_json+")'><img style = \"top: 0px; float:right;\" src= \"/images/edit.png\"> </a></span>"
                     html += entry.hours.to_s + "h "+ "of" + " " + entry.activity.name + " " + "on" + " " + entry.project.name
                     html += "</div>\n"
                     is_Edited =1
                 end
             }
+            strTmp =""
             if total_hours < 8
-                html += "<a class = \"icon icon-time-add\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
+                strTmp += "<a style = \"bottom: 50px; float:right;\"  class = \"toggle-multiselect\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
             end
-            html += \
-            "\t\t\t</div>\n" \
-            "\t\t</div>\n"
+            html += "\t\t\t</div>\n" 
+            html += strTmp 
+            html += "\t\t</div>\n"
             html.html_safe
             return html
         end
