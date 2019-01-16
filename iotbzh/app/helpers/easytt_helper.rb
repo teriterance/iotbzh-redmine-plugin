@@ -1,8 +1,10 @@
 module EasyttHelper
+    include TimelogHelper
 
     #---------------------------------------------------------------------------
     class BaseView
         include Redmine::I18n
+        include ActionView::Helpers::JavaScriptHelper
 
         CSS_CALENDAR_CONTAINER = "easytt_calendar"
         CSS_CALENDAR_ROW = "easytt_calendar_row"
@@ -104,6 +106,7 @@ module EasyttHelper
 
         # Get the HTML's code corresponding to a specific day
         def calendar_day(date)
+            is_Edited = 0
             html = \
             "\t\t<div class=\"#{CSS_CALENDAR_COL}"
             if (date == Date.today)
@@ -126,11 +129,16 @@ module EasyttHelper
                     total_hours += entry.hours
                     html += "\t\t\t\t<div class=\"easytt_timeslot " + style
                     html += "\" style=\"height: " + height + "px; line-height: " + height + "px;\">"
+                    html += "<span class =\"localimage\"><a class = \"icon-only icon-del\" href=\"/easytt/delete/"+entry.id.to_s+"\" data-confirm =\"do you want to destroy this entry ?\"></a></span>"
+                    html += "<span class =\"localimage\"><a class = \"icon-only icon-edit\" href=\"#\"  onclick = 'edit("+entry.to_json+")'></a></span>"
                     html += entry.hours.to_s + "h "+ "of" + " " + entry.activity.name + " " + "on" + " " + entry.project.name
                     html += "</div>\n"
+                    is_Edited =1
                 end
             }
-
+            if total_hours < 8
+                html += "<a class = \"icon icon-time-add\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
+            end
             html += \
             "\t\t\t</div>\n" \
             "\t\t</div>\n"
