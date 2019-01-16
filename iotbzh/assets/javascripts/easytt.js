@@ -8,9 +8,11 @@ function created(date,remainHour) {
     $("#new_time_entry").attr("action", action.replace("easytt/edit/", "easytt/create/"));
     date = new Date(date.toString());
     console.log(date);
+    document.getElementById('time_entry_project_id').value =null; 
     document.getElementsByClassName('typeForm')[0].innerHTML = "Creation form";
     document.getElementById('time_entry_spent_on').valueAsDate = date;
     document.getElementById('time_entry_hours').value = remainHour;
+    document.getElementById('time_entry_activity_id').value =null;
     visible_show();
   }
 function hidde(){

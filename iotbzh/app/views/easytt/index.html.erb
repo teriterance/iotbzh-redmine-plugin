@@ -28,6 +28,56 @@
     <% end %>
     <%= button_tag "Cancel", onclick: "hidde();"%> 
 </div>
+<%= javascript_tag do %>
+  $(document).ready(function(){
+    $('#time_entry_project_id').change(function(){
+      $('#time_entry_issue_id').val('');
+    });
+    $('#time_entry_project_id, #time_entry_issue_id').change(function(){
+      $.ajax({
+        url: '<%= escape_javascript(@time_entry.new_record? ? new_time_entry_path(:format => 'js') : edit_time_entry_path(:format => 'js')) %>',
+        type: 'post',
+        data: $(this).closest('form').serialize()
+      });
+    });
+  });
+
+  observeAutocompleteField('time_entry_issue_id',
+    function(request, callback) {
+      var url = '<%= j auto_complete_issues_path %>';
+      var data = {
+        term: request.term
+      };
+      var project_id;
+      <% if @time_entry.new_record? && @project %>
+      project_id = '<%= @project.id %>';
+      <% else %>
+      project_id = $('#time_entry_project_id').val();
+      <% end %>
+      if(project_id){
+        data['project_id'] = project_id;
+      } else {
+        data['scope'] = 'all';
+      }
+
+      $.get(url, data, null, 'json')
+        .done(function(data){
+          callback(data);
+        })
+        .fail(function(jqXHR, status, error){
+          callback([]);
+        });
+    },
+    {
+      select: function(event, ui) {
+        $('#time_entry_issue').text('');
+        $('#time_entry_issue_id').val(ui.item.value).change();
+      }
+    }
+  );
+<% end %>
+
+
 <%if false%>
 <div >
     <button id = "button_users" onclick = "showUserList()"> User times entry </button>
