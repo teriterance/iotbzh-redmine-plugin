@@ -1,3 +1,19 @@
 # English strings go here for Rails i18n
 en:
   on: "on"
+  view: "View"
+  user: "User"
+  project: "Project"
+  activity: "Activity"
+  date_n: "Date"
+  hours_n: "Hours"
+  comment: "Comment"
+  cancel: "Cancel"
+  duplicate: "Duplicate"
+  creation: "Creation"
+
+  month: "Month"
+  day: "Day"
+  week: "Week"
+  workweek: "Working Week"
+  workmonth: "Working Month"

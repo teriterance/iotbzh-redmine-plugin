@@ -25,9 +25,12 @@ module EasyttHelper
             return @type
         end
 
+
         # Set the data to display
-        def set_datas(entries)
+        def set_datas(entries,userid,curent_userid)
             @datas = entries
+            @userid = userid
+            @curent_userid = curent_userid
         end
         
         # Get the reference date
@@ -112,11 +115,11 @@ module EasyttHelper
             if (date == Date.today)
                 html += " " + CSS_CALENDAR_DAY_TODAY
             end
-            
+            return_url = "?return="+URI.escape("/easytt/index/"+@userid+"/"+@type+"/"+@refdate.strftime("%Y-%m-%d"))
             html += \
             "\">\n" \
             "\t\t\t<div class=\"#{CSS_CALENDAR_DAY_HEADER}\">#{date.strftime("%Y-%m-%d")}</div>\n" \
-            "\t\t\t<div  class=\"#{CSS_CALENDAR_DAY_CONTENT}\">\n"
+            "\t\t\t<div class=\"#{CSS_CALENDAR_DAY_CONTENT}\">\n"
             
             total_hours = 0.0
             @datas.each { |entry|
@@ -129,15 +132,17 @@ module EasyttHelper
                     total_hours += entry.hours
                     html += "\t\t\t\t<div class=\"easytt_timeslot " + style
                     html += "\" style=\"height: " + height + "px; line-height: " + height + "px;\">"
-                    html += "<span class =\"localimage\"><a style = \"top: 0px; float:right;\" href=\"/easytt/delete/"+entry.id.to_s+"\" data-confirm =\"do you want to destroy this entry ?\"><img style = \"top: 0px; float:right;\" src= \"/images/delete.png\"> </a></span>"
-                    html += "<span class =\"localimage\"><a style = \"top: 0px; float:right;\" href=\"#\"  onclick = 'edit("+entry.to_json+")'><img style = \"top: 0px; float:right;\" src= \"/images/edit.png\"> </a></span>"
+                    if @userid.to_i == @curent_userid
+                    html += "<span class=\"localimage\"><a style=\"top: 0px;float:right;\" href=\"/easytt/delete/"+entry.id.to_s+return_url+"\" data-confirm=\"do you want to destroy this entry ?\"><img style = \"top: 0px; float:right;\" src= \"/images/delete.png\"> </a></span>"
+                    html += "<span class=\"localimage\"><a style=\"top: 0px;float:right;\" href=\"#\" onclick='edit("+entry.to_json+")'><img style=\"top: 0px; float:right;\" src=\"/images/edit.png\"> </a></span>"
+                    end
                     html += entry.hours.to_s + "h "+ "of" + " " + entry.activity.name + " " + "on" + " " + entry.project.name
                     html += "</div>\n"
                     is_Edited =1
                 end
             }
             strTmp =""
-            if total_hours < 8
+            if total_hours < 8 && @userid.to_i == @curent_userid
                 strTmp += "<a style = \"bottom: 50px; float:right;\"  class = \"toggle-multiselect\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
             end
             html += "\t\t\t</div>\n" 

@@ -92,12 +92,20 @@
 .required{
     color: red;
 }
-.imagedele{
-
-}
 .imageEdit{
     background-image: url(/images/edit.png);
 }
 .localimage{
     position: relative;
+}
+#button_duplicate{
+    background-color: transparent;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-image: none;
+    background-size: auto auto;
+    background-origin: padding-box;
+    background-clip: border-box;
 }
