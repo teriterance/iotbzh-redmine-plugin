@@ -89,7 +89,7 @@ $( "#select_view" ).change(function() {
 <div id="user_time_entry">
     <%= form_for @users, url: {action: "other_user"} do |f| %>
         <p><h3><%=t :user%></h3>
-        <%= f.select :id, options_from_collection_for_select(User.where("type <> 'AnonymousUser'"), :id, :name), :include_blank => false,:required => true %>
+        <%= f.select :id, options_from_collection_for_select(User.where("type <> 'AnonymousUser'").order(:firstname), :id, :name), :include_blank => false,:required => true %>
     <% end %>
 </div>
 
