@@ -14,8 +14,9 @@ $( "#select_view" ).change(function() {
   update_view();
 });
 <%end%>
-
-
+<% if @view.type.to_s == "day" %>
+<p><input id ="date" type="date" name="active-day" oncreate= "setDate()"> <button onclick="go_toDate()">bouton</button></p>
+<%end%>
 <br/>
 <%= javascript_tag do %>
   $(document).ready(function(){

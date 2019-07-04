@@ -53,10 +53,12 @@ function edit(entry) {
   document.getElementById('button_duplicate').style.display ='block';
   visible_show();
 }
+
 function showUserList(){
   document.getElementById('button_users').style.display = "none";
   document.getElementById('form_user').style.display = "block"
 }
+
 function update_user(){
   var t = document.getElementById('user_id').value;
   var url = window.location.href;
@@ -64,10 +66,22 @@ function update_user(){
   url = url.replace('/index/'+a[5]+'/','/index/'+t+'/');
   window.location.href = url;
 }
+
 function update_view(){
   var t = document.getElementById('select_view').value;
   var url = window.location.href;
   var a = url.split('/');
   url = url.replace('/'+a[6]+'/','/'+t+'/');
   window.location.href = url;
+}
+
+function go_toDate(){
+  var url = window.location.href;
+  var a = url.split('/');
+  wishDay = document.getElementById("date").value.toString();
+  a[7] = wishDay;
+  if (a[7] !=""){
+    window.location.href = a.join('/');
+  }
+  console.log(a)
 }
