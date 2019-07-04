@@ -33,6 +33,7 @@ function duplicate()
 }
 
 function edit(entry) {
+
   var action = $("#new_time_entry").attr("action");
   $("#new_time_entry").attr("action", action.replace("easytt/create/", "easytt/edit/"));
   document.getElementsByClassName('typeForm')[0].innerHTML = "Edition";
@@ -63,7 +64,5 @@ function update_view(){
   var url = window.location.href;
   var a = url.split('/');
   url = url.replace('/'+a[6]+'/','/'+t+'/');
-  console.log(url);
   window.location.href = url;
-  
 }
