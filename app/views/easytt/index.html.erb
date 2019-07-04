@@ -16,24 +16,6 @@ $( "#select_view" ).change(function() {
 <%end%>
 
 
-<div id = "formulaire" >
-    <h3 class = 'typeForm'><%=t :creation%></h3>
-    <%= form_for @time_entry, url: {action: "create"}, html: {class: "formulaire"} do |f| %>
-        <p><label><%=t :project%></label>  <span class="required"> *</span><%= f.select :project_id, project_tree_options_for_select(Project.allowed_to(:log_time).to_a, :selected => @time_entry.project, :include_blank => true), :required => true %> 
-        <label><%=t :activity%></label> <span class="required">*</span> <%= f.select :activity_id, activity_collection_for_select_options(@time_entry), :required => true %></p>
-        <p style = "display:none; "><label>Issue</label>    <%= f.text_field :issue_id, :size => 6, :required => Setting.timelog_required_fields.include?('issue_id') %>
-            <span id="time_entry_issue">
-      <%=  link_to_issue(@time_entry.issue) if @time_entry.issue.try(:visible?) %>
-    </span>
-        </p>
-        <p><label><%=t :date_n%></label><span class="required">*</span><%= f.date_field :spent_on, :size => 10, :required => true %><%= calendar_for('time_entry_spent_on') %>
-        <label><%=t :hours_n%></label><span class="required">*</span><%= f.text_field :hours %></p>
-        <p><label><%=t :comment%></label><%= f.text_field :comments %></p>
-        <p> <%= hidden_field_tag 'id', params[:id] %> </p>
-        <p>  <%= f.submit "Ok" %><input type="submit" name="submit"  value="duplicate" class="button-small" id="button_duplicate" onclick="duplicate()" >
-    <% end %>
-     <input type="submit" name="button" value="Cancel" class="button-small" id="cancel" onclick="hide()"> </p>
-</div>
 <br/>
 <%= javascript_tag do %>
   $(document).ready(function(){
@@ -85,14 +67,15 @@ $( "#select_view" ).change(function() {
 <% end %>
 
 
-<%if true%>
 <div id="user_time_entry">
     <%= form_for @users, url: {action: "other_user"} do |f| %>
         <p><h3><%=t :user%></h3>
         <%= f.select :id, options_from_collection_for_select(User.where("type <> 'AnonymousUser'").order(:firstname), :id, :name), :include_blank => false,:required => true %>
-    <% end %>
 </div>
-
+<p>
+<br/>
+<br/>
+</p>
 <%= javascript_tag do %>
 $('#user_id').val('<%=@userid%>')
 
@@ -115,3 +98,27 @@ $( "#user_id" ).change(function() {
     <%= stylesheet_link_tag 'easytt', :plugin => 'iotbzh' %>
     <%= javascript_include_tag 'easytt',:plugin => 'iotbzh' %>
 <% end %>
+
+<div id="zone-flotante">
+<div id = "formulaire" >
+    <h3 class = 'typeForm'><%=t :creation%></h3>
+    <%= form_for @time_entry, url: {action: "create"}, html: {class: "formulaire"} do |f| %>
+        <p>
+        <label><%=t :project%></label>  <span class="required"> *</span><%= f.select :project_id, project_tree_options_for_select(Project.allowed_to(:log_time).to_a, :selected => @time_entry.project, :include_blank => true), :required => true %> 
+        <label><%=t :activity%></label> <span class="required">*</span> <%= f.select :activity_id, activity_collection_for_select_options(@time_entry), :required => true %>
+        <label><%=t :date_n%></label><span class="required">*</span><%= f.date_field :spent_on, :size => 10, :required => true %><%= calendar_for('time_entry_spent_on') %>
+        <label><%=t :hours_n%></label><span class="required">*</span><%= f.text_field :hours %>
+        </p>
+        <p style = "display:none; "><label>Issue</label>    <%= f.text_field :issue_id, :size => 6, :required => Setting.timelog_required_fields.include?('issue_id') %>
+            <span id="time_entry_issue">
+      <%=  link_to_issue(@time_entry.issue) if @time_entry.issue.try(:visible?) %>
+    </span>
+        </p>
+        <p><label><%=t :comment%></label><%= f.text_field :comments %></p>
+        <p> <%= hidden_field_tag 'id', params[:id] %> </p>
+        <p> <%= f.submit "Ok" %><input type="submit" name="button" value="duplicate" class="button-small" id="button_duplicate" onclick="duplicate()" >
+        </p>
+    <% end %>
+    <input type="submit" name="button" value="Cancel" class="button-small" id="cancel" onclick="hide()">
+</div>
+</div>
