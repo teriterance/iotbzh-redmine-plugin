@@ -33,7 +33,12 @@ function duplicate()
 }
 
 function edit(entry) {
-
+  var t = document.getElementById('select_view').value;
+  if (!((t == "month") || (t == "workmonth"))){
+    document.getElementById("zone-flotante").style.position = 'initial';
+  }else{
+    document.getElementById("zone-flotante").style.position = 'fixed';
+  }
   var action = $("#new_time_entry").attr("action");
   $("#new_time_entry").attr("action", action.replace("easytt/create/", "easytt/edit/"));
   document.getElementsByClassName('typeForm')[0].innerHTML = "Edition";
