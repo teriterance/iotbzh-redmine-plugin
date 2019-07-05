@@ -9,6 +9,8 @@
 }
 #formulaire{
     display: none;
+    margin: 10px;
+    background-color: rgb(190, 220, 235);
 }
 #buttonShow{
     display: none;
@@ -16,8 +18,8 @@
 
 #zone-flotante{
     position: fixed;
-    top: 70px;
-    background-color: rgb(190, 220, 235);
+    top: 110px;
+    background-color: #3E5B76;
     border-color: rgb(0, 2, 3);
     border-width: 1px;
 }

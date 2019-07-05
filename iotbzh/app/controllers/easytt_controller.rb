@@ -69,6 +69,22 @@ class EasyttController < ApplicationController
     redirect_to "/easytt/index/"+params[:userid]+"/"+params[:viewtype]+"/"+params[:refdate]
   end
 
+  ### Responce to route '/easytt/create_multiple/date_begin/date_end'
+  def create_multiple
+    (:date_begin..:date_end).each do |dte|
+      @time_entry ||= TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, dte => User.current.today)
+      @time_entry.safe_attributes = params[:time_entry]
+      @time_entry.save
+      if (@time_entry.save)
+        flash[:notice] = l(:notice_successful_create)
+      else
+        flash[:error] = l(:notice_unable_create_time_entry)
+      end
+    end
+    redirect_back_or_default project_time_entries_path(@time_entry.project)
+  end
+
+  ### Responce to route '/easytt/update
   def update
     @time_entry.safe_attributes = params[:time_entry]
 

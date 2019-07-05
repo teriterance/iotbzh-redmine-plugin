@@ -20,10 +20,10 @@ function created(date,remainHour) {
     document.getElementById('button_duplicate').style.display ='none';
     visible_show();
   }
-function hide(){
-  document.getElementById('formulaire').style.display = "none";
-  document.getElementById('user_time_entry').style.display = "block";
-}
+  function hide(){
+    document.getElementById('formulaire').style.display = "none";
+    document.getElementById('user_time_entry').style.display = "block";
+  }
 
 function duplicate()
 {
@@ -83,5 +83,4 @@ function go_toDate(){
   if (a[7] !=""){
     window.location.href = a.join('/');
   }
-  console.log(a)
 }
