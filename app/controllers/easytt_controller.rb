@@ -43,7 +43,9 @@ class EasyttController < ApplicationController
 
   ### Responce to route '/easytt/create'
   def create
+    d = Date.today + 1.days
     @time_entry ||= TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
+    @time_entry.spent_on = @time_entry.spent_on + 1.days
     @time_entry.safe_attributes = params[:time_entry]
     @time_entry.save
     if (@time_entry.save)

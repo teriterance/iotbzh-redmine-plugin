@@ -85,3 +85,11 @@ function go_toDate(){
   }
   console.log(a)
 }
+
+function multiple_edit(){
+  document.getElementById('button-edit-create').display = 'none'
+  document.getElementById('').display = 'block'
+
+  date_begin =  document.getElementById('spent_on').value;
+  date_end =  document.getElementById('date2').value;
+}
