@@ -6,22 +6,28 @@ function visible_show(){
   document.getElementById('formulaire').style.display = "block";
   document.getElementById('user_time_entry').style.display = "none";
 }
+function empty_form(){
+  document.getElementById('time_entry_project_id').value =null; 
+    document.getElementsByClassName('typeForm')[0].innerHTML = "Creation";
+    document.getElementById('time_entry_activity_id').value =null;
+    document.getElementById('button_duplicate').style.display ='none';
+}
 
 function created(date,remainHour) {
     var action = $("#new_time_entry").attr("action");
     $("#new_time_entry").attr("action", action.replace("easytt/edit/", "easytt/create/"));
     date = new Date(date.toString());
-    console.log(date);
-    document.getElementById('time_entry_project_id').value =null; 
-    document.getElementsByClassName('typeForm')[0].innerHTML = "Creation";
+    document.getElementById('button-edit-create').display = 'block'
+    document.getElementById('champ2').display = 'none'
     document.getElementById('time_entry_spent_on').valueAsDate = date;
     document.getElementById('time_entry_hours').value = remainHour;
-    document.getElementById('time_entry_activity_id').value =null;
-    document.getElementById('button_duplicate').style.display ='none';
+    console.log(date);
+    empty_form();
     visible_show();
   }
 function hide(){
   document.getElementById('formulaire').style.display = "none";
+  document.getElementById('champ2').display = "none"
   document.getElementById('user_time_entry').style.display = "block";
 }
 
@@ -52,6 +58,8 @@ function edit(entry) {
   document.getElementById('id').value = entry.id;
   document.getElementById('button_duplicate').style.display ='block';
   visible_show();
+  document.getElementById('button-edit-create').display = "block"
+  document.getElementById('champ2').display = "none"
 }
 
 function showUserList(){
@@ -86,10 +94,53 @@ function go_toDate(){
   console.log(a)
 }
 
-function multiple_edit(){
+function multiple_edit_activate(){
+  visible_show();
   document.getElementById('button-edit-create').display = 'none'
-  document.getElementById('').display = 'block'
+  document.getElementById('champ2').display = 'block'
+  empty_form();
+}
 
-  date_begin =  document.getElementById('spent_on').value;
-  date_end =  document.getElementById('date2').value;
+function multiple_create(){
+  document.getElementById('champ2').display = 'block'
+  document.getElementById('button-edit-create').display = 'none'
+  var xhr_object = null; 
+  if(window.XMLHttpRequest) // Firefox 
+    xhr_object = new XMLHttpRequest(); 
+  else if(window.ActiveXObject) // Internet Explorer 
+    xhr_object = new ActiveXObject("Microsoft.XMLHTTP"); 
+  else { // XMLHttpRequest non supporté par le navigateur 
+    alert("Votre navigateur ne supporte pas les objets XMLHTTPRequest..."); 
+    return;
+  } 
+  var project_id = document.getElementById('time_entry_project_id').value;
+  var time_entry_activity_id = document.getElementById('time_entry_activity_id').value;
+  var time_entry_spent_on = document.getElementById('time_entry_spent_on').value;
+  time_entry_spent_on = new Date(time_entry_spent_on);
+  console.log(time_entry_spent_on);
+  var hours = document.getElementById('time_entry_hours').value;
+  var date2 = document.getElementById('date2');
+  date2 = new Date(date2);
+  var time_entry_hours = document.getElementById('time_entry_hours').value;
+  var time_entry_comments = document.getElementById('time_entry_comments').value;
+  
+  if(project_id != null && time_entry_activity_id!=null && time_entry_spent_on!=null && date2!= null && hours!=null){
+  console.log(time_entry_spent_on);
+  var data = {
+              "commit": "Ok",
+              "authenticity_token": arguments.token,                 
+              "time_entry[project_id]": project_id,         
+              "time_entry[issue_id]": "",         
+              "time_entry[spent_on]": time_entry_spent_on,         
+              "time_entry[hours]": hours,         
+              "time_entry[comments]": "",         
+              "time_entry[activity_id]": time_entry_activity_id,  
+              "id":"",       
+            }
+  
+  console.log(time_entry_spent_on+1);
+  xhr_object.open('POST',  "easytt/create", true);
+  xhr_object.send(JSON.stringify(data));
+  }
+
 }
