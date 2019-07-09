@@ -43,10 +43,9 @@ class EasyttController < ApplicationController
 
   ### Responce to route '/easytt/create'
   def create
-    d = Date.today + 1.days
-    @time_entry ||= TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
-    @time_entry.spent_on = @time_entry.spent_on + 1.days
+    @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
     @time_entry.safe_attributes = params[:time_entry]
+    @time_entry.spent_on = @time_entry.spent_on
     @time_entry.save
     if (@time_entry.save)
       flash[:notice] = l(:notice_successful_create)
@@ -54,6 +53,33 @@ class EasyttController < ApplicationController
       flash[:error] = l(:notice_unable_create_time_entry)
     end
     redirect_to "/easytt/index/"+params[:userid]+"/"+params[:viewtype]+"/"+params[:refdate]
+  end
+
+  ### Responce to route '/easytt/multiple_create'
+  def multiple_create
+    i = 0.day;
+    d2 = Date.parse(params[:time_entry][:spent_on])
+    d1 = Date.parse(params[:time_entry][:issue])
+    params[:time_entry][:issue] = nil
+    if (d2.month == d1.month)
+      while d2.day <= d1.day  do
+        puts d2
+        if(!d2.on_weekend?)
+          @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
+          @time_entry.safe_attributes = params[:time_entry]
+          @time_entry.spent_on = d2
+          @time_entry.save
+          if (@time_entry.save)
+            flash[:notice] = l(:notice_successful_create)
+          else
+            flash[:error] = l(:notice_unable_create_time_entry)
+          end
+        end
+        d2 = d2.next_day()
+      end
+    end
+
+  redirect_to "/easytt/index/"+params[:userid]+"/"+params[:viewtype]+"/"+params[:refdate]
   end
 
   ### Responce to route '/easytt/edit/id/'

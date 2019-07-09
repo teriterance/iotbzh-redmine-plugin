@@ -8,6 +8,7 @@
 <option value="workweek"><%=t :workweek%></option>
 <option value="workmonth"><%=t :workmonth%></option>
 </select>
+
 <%= javascript_tag do %>
 $('#select_view').val('<%=@view.type%>')
 $( "#select_view" ).change(function() {
@@ -17,9 +18,7 @@ $( "#select_view" ).change(function() {
 <% if @view.type.to_s == "day" %>
 <p><input id ="date" type="date" name="active-day" value = <%=Date.today%>> <button onclick="go_toDate()">bouton</button></p>
 <%end%>
-
-<p><button onclick="multiple_edit_activate()">edition multiple</button></p>
-<p><button onclick="multiple_create()"> multiple</button></p>
+<br/>
 <%= javascript_tag do %>
   $(document).ready(function(){
     $('#time_entry_project_id').change(function(){
@@ -75,10 +74,6 @@ $( "#select_view" ).change(function() {
         <p><h3><%=t :user%></h3>
         <%= f.select :id, options_from_collection_for_select(User.where("type <> 'AnonymousUser'").order(:firstname), :id, :name), :include_blank => false,:required => true %>
 </div>
-<p>
-<br/>
-<br/>
-</p>
 <%= javascript_tag do %>
 $('#user_id').val('<%=@userid%>')
 
@@ -103,21 +98,25 @@ $( "#user_id" ).change(function() {
 <% end %>
 
 <div id="zone-flotante">
-  <div id = "formulaire" >
+<div id = "formulaire" >
     <h3 class = 'typeForm'><%=t :creation%></h3>
     <%= form_for @time_entry, url: {action: "create"}, html: {class: "formulaire"} do |f| %>
         <p>
         <label><%=t :project%></label>  <span class="required"> *</span><%= f.select :project_id, project_tree_options_for_select(Project.allowed_to(:log_time).to_a, :selected => @time_entry.project, :include_blank => true), :required => true %> 
         <label><%=t :activity%></label> <span class="required">*</span> <%= f.select :activity_id, activity_collection_for_select_options(@time_entry), :required => true %>
         <label><%=t :date_n%></label><span class="required">*</span><%= f.date_field :spent_on, :size => 10, :required => true %><%= calendar_for('time_entry_spent_on') %>
-        <span id ="champ2"><label><%=t :date_n%> 2</label><span class="required">*</span><input type = "date" id="date2" size="10" value=<%=Date.today%>></span>
+        <p id="d"><label><%=t :date_n%></label><span class="required">*</span><%= f.date_field :issue, :size => 10, :required => true %><%= calendar_for('time_entry_spent_on') %></p>
         <label><%=t :hours_n%></label><span class="required">*</span><%= f.text_field :hours %>
         </p>
-        <p style = "display:none; "><label>Issue</label>    <%= f.text_field :issue_id, :size => 6, :required => Setting.timelog_required_fields.include?('issue_id') %><span id="time_entry_issue"><%=  link_to_issue(@time_entry.issue) if @time_entry.issue.try(:visible?) %></span></p>
+        <p style = "display:none; "><label>Issue</label>    <%= f.text_field :issue_id, :size => 6, :required => Setting.timelog_required_fields.include?('issue_id') %>
+            <span id="time_entry_issue">
+      <%=  link_to_issue(@time_entry.issue) if @time_entry.issue.try(:visible?) %>
+    </span>
+        </p>
         <p><label><%=t :comment%></label><%= f.text_field :comments %></p>
         <p> <%= hidden_field_tag 'id', params[:id] %> </p>
-        <p><div id ="button-edit-create"><%= f.submit "Ok" %><input type="submit" name="button" value="duplicate" class="button-small" id="button_duplicate" onclick="duplicate()" ></div><a name="button" value="Cancel" class="button-small" id="cancel" onclick="hide()">Cancle</a>
+        <p> <%= f.submit "Ok" %><input type="submit" name="button" value="duplicate" class="button-small" id="button_duplicate" onclick="duplicate()" ><a name="button" class="button-small" id="cancel" onclick="hide()">Cancel</a>
         </p>
     <% end %>
-  </div>
+</div>
 </div>
