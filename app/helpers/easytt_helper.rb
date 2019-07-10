@@ -145,7 +145,7 @@ module EasyttHelper
             if total_hours < 8 && @userid.to_i == @curent_userid
                 strTmp += "<a style = \"bottom: 50px; float:right;\"  class = \"toggle-multiselect\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
                 if (date.on_weekday?)
-                    strTmp += "<a style = \"bottom: 50px; float:left;\" href=\"#\", onclick = \"multiple_create()\"><img style=\"top: 0px; float:right;\" src=\"/images/add.png\"> </a></a>"
+                    strTmp += "<a style = \"bottom: 50px; float:left;\" href=\"#\", onclick = \"multiple_create('"+date.strftime("%Y-%m-%d")+"')\"><img style=\"top: 0px; float:right;\" src=\"/images/add.png\"> </a></a>"
                 end    
             end
             html += "\t\t\t</div>\n" 

@@ -28,7 +28,7 @@ function created(date,remainHour) {
   visible_show();
 }
 
-function multiple_create(){
+function multiple_create(date){
   var t = document.getElementById('select_view').value;
   if (!((t == "month") || (t == "workmonth"))){
     document.getElementById("zone-flotante").style.position = 'initial';
@@ -41,6 +41,9 @@ function multiple_create(){
   document.getElementById('time_entry_project_id').value =null; 
   document.getElementsByClassName('typeForm')[0].innerHTML = "Multiple Creation";
   document.getElementById('time_entry_activity_id').value =null;
+  date = new Date(date.toString());
+  document.getElementById('date_end').valueAsDate = date
+  document.getElementById('time_entry_spent_on').valueAsDate = date;
   document.getElementById('button_duplicate').style.display ='none';
   document.getElementById('d').style.display ='block';
   visible_show();
