@@ -13,13 +13,15 @@ fr:
   duplicate: "Duplication"
   creation: "Creation"
   goto: "aller à"
+  repeat: "Repeter"
+  multiple?: "Multiple ?"
 
   month: "Mois"
   day: "Jour"
   week: "Semaine"
   workweek: "Semaine de travail"
   workmonth: "Mois de travail"
-  daily: "Chaque Jour "
+  daily: "Chaque Jours "
   weekly: "Chaque semaines"
   biweekly: "Toutes les deux semaines"
  
