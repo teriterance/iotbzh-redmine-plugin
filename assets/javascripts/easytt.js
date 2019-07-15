@@ -3,21 +3,21 @@ $( "#user_id" ).change(function() {
 });
 
 function visible_show(){
-  document.getElementById("formulaire").style.display = "block";
+  document.getElementById("form_of_entry").style.display = "block";
   document.getElementById("user_time_entry").style.display = "none";
 }
 
 function hide(){
-  document.getElementById('formulaire').style.display = "none";
+  document.getElementById('form_of_entry').style.display = "none";
   document.getElementById('user_time_entry').style.display = "block";
 }
 
 function created(date,remainHour) {
   var t = document.getElementById("select_view").value;
   if (!((t == "month") || (t == "workmonth"))){
-    document.getElementById("zone-flotante").style.position = "initial";
+    document.getElementById("floating-zone").style.position = "initial";
   }else{
-    document.getElementById("zone-flotante").style.position = "fixed";
+    document.getElementById("floating-zone").style.position = "fixed";
   }
   var action = $("#new_time_entry").attr("action");
   action = action.split('/')
@@ -67,28 +67,34 @@ function duplicate()
 
 function edit(entry) {
   visible_show();
+  setTimeout('', 4);
   var t = document.getElementById('select_view').value;
   if (!((t == "month") || (t == "workmonth"))){
-    document.getElementById("zone-flotante").style.position = 'initial';
+    document.getElementById("floating-zone").style.position = 'initial';
   }else{
-    document.getElementById("zone-flotante").style.position = 'fixed';
+    document.getElementById("floating-zone").style.position = 'fixed';
   }
   var action = $("#new_time_entry").attr("action");
   action = action.split('/')
   action[2] = "edit";
-  $("#new_time_entry").attr("action", action.join('/'));
-  document.getElementsByClassName("typeForm")[0].innerHTML = "Edition";
+  document.getElementById("time_entry_activity_id").value =entry.activity_id;
   $('#time_entry_project_id').val(entry.project_id); 
   $('#time_entry_project_id').change();
+  $("#new_time_entry").attr("action", action.join('/'));
+  document.getElementsByClassName("typeForm")[0].innerHTML = "Edition";
   document.getElementById("time_entry_issue_id").value = entry.issue_id;
   document.getElementById("time_entry_spent_on").valueAsDate = new Date(entry.spent_on.toString());
   document.getElementById("time_entry_hours").value = entry.hours
   document.getElementById("time_entry_comments").value = entry.comments;
-  document.getElementById("time_entry_activity_id").value =entry.activity_id;
+  if (document.getElementById("time_entry_activity_id").value != entry.activity_id){
+      document.getElementById("time_entry_activity_id").value =entry.activity_id;
+      console.log(document.getElementById("time_entry_activity_id").value);
+  }
   document.getElementById("id").value = entry.id;
   document.getElementById("multiple").style.display = "none";
   document.getElementById("multiple-specific").style.display ="none";
   document.getElementById("button_duplicate").style.display ="block";
+  console.log(document.getElementById("time_entry_activity_id").value);
 }
 
 function showUserList(){
@@ -121,4 +127,3 @@ function go_toDate(){
     window.location.href = a.join('/');
   }
 }
-

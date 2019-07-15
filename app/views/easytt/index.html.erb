@@ -49,10 +49,10 @@ $( "#user_id" ).change(function() {
 
 
 <%if false%>time_entry edit form<%end%>
-<div id="zone-flotante">
-<div id = "formulaire" >
+<div id="floating-zone">
+<div id = "form_of_entry" >
     <h3 class = 'typeForm'><%=t :creation%></h3>
-    <%= form_for @time_entry, url: {action: "create"}, html: {class: "formulaire"} do |f| %>
+    <%= form_for @time_entry, url: {action: "create"}, html: {class: "form_of_entry"} do |f| %>
         <p>
           <label><%=t :project%></label>  <span class="required"> *</span><%= f.select :project_id, project_tree_options_for_select(Project.allowed_to(:log_time).to_a, :selected => @time_entry.project, :include_blank => true), :required => true %> 
           <label><%=t :activity%></label> <span class="required">*</span> <%= f.select :activity_id, activity_collection_for_select_options(@time_entry), :required => true %>
