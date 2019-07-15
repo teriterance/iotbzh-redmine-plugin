@@ -98,7 +98,6 @@ class EasyttController < ApplicationController
 
   ### Responce to route '/easytt/edit/id/'
   def edit
-    puts "edit"
     @time_entry =TimeEntry.find(params[:id])
     @time_entry.safe_attributes = params[:time_entry]
     if @time_entry.save

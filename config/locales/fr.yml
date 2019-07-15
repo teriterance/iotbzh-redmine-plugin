@@ -14,7 +14,7 @@ fr:
   creation: "Creation"
   goto: "aller à"
   repeat: "Repeter"
-  multiple?: "Multiple ?"
+  multiple?: "Multiple"
 
   month: "Mois"
   day: "Jour"

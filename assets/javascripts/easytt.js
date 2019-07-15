@@ -46,7 +46,7 @@ function multiple_create(){
 
 function calc()
 {
-  if (document.getElementById("choice").checked) 
+  if (!document.getElementById("choice").checked) 
   {
     multiple_create();
   } else {
@@ -66,6 +66,7 @@ function duplicate()
 }
 
 function edit(entry) {
+  visible_show();
   var t = document.getElementById('select_view').value;
   if (!((t == "month") || (t == "workmonth"))){
     document.getElementById("zone-flotante").style.position = 'initial';
@@ -77,7 +78,8 @@ function edit(entry) {
   action[2] = "edit";
   $("#new_time_entry").attr("action", action.join('/'));
   document.getElementsByClassName("typeForm")[0].innerHTML = "Edition";
-  document.getElementById("time_entry_project_id").value =entry.project_id; 
+  $('#time_entry_project_id').val(entry.project_id); 
+  $('#time_entry_project_id').change();
   document.getElementById("time_entry_issue_id").value = entry.issue_id;
   document.getElementById("time_entry_spent_on").valueAsDate = new Date(entry.spent_on.toString());
   document.getElementById("time_entry_hours").value = entry.hours
@@ -87,7 +89,6 @@ function edit(entry) {
   document.getElementById("multiple").style.display = "none";
   document.getElementById("multiple-specific").style.display ="none";
   document.getElementById("button_duplicate").style.display ="block";
-  visible_show();
 }
 
 function showUserList(){
@@ -120,3 +121,4 @@ function go_toDate(){
     window.location.href = a.join('/');
   }
 }
+
