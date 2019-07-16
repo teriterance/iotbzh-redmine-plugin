@@ -9,6 +9,8 @@
 }
 #form_of_entry{
     display: none;
+    background-color: rgb(190, 220, 235);
+    margin: 10px 10px 10px 10px;
 }
 #buttonShow{
     display: none;
@@ -17,7 +19,7 @@
 #floating-zone{
     position: fixed;
     top: 70px;
-    background-color: rgb(190, 220, 235);
+    background-color: rgb(105, 156, 182);
     border-color: rgb(0, 2, 3);
     border-width: 1px;
 }
