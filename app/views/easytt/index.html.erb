@@ -58,7 +58,7 @@ $( "#user_id" ).change(function() {
           <label><%=t :activity%></label> <span class="required">*</span> <%= f.select :activity_id, activity_collection_for_select_options(@time_entry), :required => true %>
           <label><%=t :date_n%></label><span class="required">*</span><%= f.date_field :spent_on, :size => 10, :required => true %><%= calendar_for('time_entry_spent_on') %>
         </p>
-        <p id="multiple"><input type="checkbox" id="choice" name="choice" onclick="calc();"/><label><%=t :multiple?%></label></p>
+        <p id="multiple"><input type="checkbox" id="choice" name="choice" onclick="calc();" unchecked/><label><%=t :multiple?%></label></p>
           <p id="multiple-specific"><label><%=t :date_end%></label><span class="required">*</span><input id="date_end" type="date" name="date_end"/>
           <label><%=t :repeat%></label>
             <select id = "select_repetition" name ="select_repetition">

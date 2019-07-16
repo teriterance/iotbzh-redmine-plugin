@@ -6,7 +6,7 @@ class EasyttController < ApplicationController
   # Constants
   DEFAULT_REFDATE = Date.today
   DEFAULT_REFINDEX = 0
-  DEFAULT_VIEWTYPE = "week"
+  DEFAULT_VIEWTYPE = "workmonth"
   # Response to route '/easytt/index/...'
   def index
     @userid = User.current.id
@@ -62,8 +62,7 @@ class EasyttController < ApplicationController
     if (params[:date_end] != nil)
       if ((d2 <= d1 + 30.day && selec == "daily") || ( (d2.month <= d1.month + 3) && selec == "weekly") || ( (d2.month <= d1.month + 3) && selec == "biweekly"))
         while d2 <= d1  do
-          puts d2
-          if(!d2.on_weekend?)
+          if(!(d2.saturday? or d2.sunday?))
             @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
             @time_entry.safe_attributes = params[:time_entry]
             @time_entry.spent_on = d2

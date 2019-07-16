@@ -32,6 +32,10 @@ function created(date,remainHour) {
   document.getElementById("multiple").style.display = "block";
   document.getElementById("button_duplicate").style.display ='none';
   visible_show();
+  if (document.getElementById("choice").checked){
+    document.getElementById("choice").checked = false;
+    $('#choice').change();
+  }
 }
 
 function multiple_create(){
@@ -46,7 +50,7 @@ function multiple_create(){
 
 function calc()
 {
-  if (!document.getElementById("choice").checked) 
+  if ($('#choice').is(':checked') == true ) 
   {
     multiple_create();
   } else {
@@ -88,13 +92,11 @@ function edit(entry) {
   document.getElementById("time_entry_comments").value = entry.comments;
   if (document.getElementById("time_entry_activity_id").value != entry.activity_id){
       document.getElementById("time_entry_activity_id").value =entry.activity_id;
-      console.log(document.getElementById("time_entry_activity_id").value);
   }
   document.getElementById("id").value = entry.id;
   document.getElementById("multiple").style.display = "none";
   document.getElementById("multiple-specific").style.display ="none";
   document.getElementById("button_duplicate").style.display ="block";
-  console.log(document.getElementById("time_entry_activity_id").value);
 }
 
 function showUserList(){
