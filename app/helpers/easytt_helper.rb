@@ -130,11 +130,10 @@ module EasyttHelper
                         style = "easytt_timeslot_error"
                     end
                     total_hours += entry.hours
-                    html += "\t\t\t\t<div class=\"easytt_timeslot " + style
+                    html += "\t\t\t\t<div onclick='edit("+entry.to_json+")' class=\"easytt_timeslot " + style
                     html += "\" style=\"height: " + height + "px; line-height: " + height + "px;\">"
                     if @userid.to_i == @curent_userid
                     html += "<span class=\"localimage\"><a style=\"top: 0px;float:right;\" href=\"/easytt/delete/"+entry.id.to_s+return_url+"\" data-confirm=\"do you want to destroy this entry ?\"><img style = \"top: 0px; float:right;\" src= \"/images/delete.png\"> </a></span>"
-                    html += "<span class=\"localimage\"><a style=\"top: 0px;float:right;\" href=\"#\" onclick='edit("+entry.to_json+")'><img style=\"top: 0px; float:right;\" src=\"/images/edit.png\"> </a></span>"
                     end
                     html += entry.hours.to_s + "h "+ "of" + " " + entry.activity.name + " " + "on" + " " + entry.project.name
                     html += "</div>\n"
@@ -143,7 +142,7 @@ module EasyttHelper
             }
             strTmp =""
             if total_hours < 8 && @userid.to_i == @curent_userid
-                strTmp += "<a style = \"bottom: 50px; float:right;\"  class = \"toggle-multiselect\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"></a>" 
+                strTmp += "<a style = \"bottom: 50px; float:right;\"  class = \"toggle-multiselect\" href=\"#\", onclick = \"created('"+date.strftime("%Y-%m-%d")+"',"+(8-total_hours).to_s+")\"><img style = \"top: 0px; float:right;\" ></a>" 
             end
             html += "\t\t\t</div>\n" 
             html += strTmp 

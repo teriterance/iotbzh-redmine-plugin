@@ -30,7 +30,6 @@ function created(date,remainHour) {
   document.getElementsByClassName("typeForm")[0].innerHTML = "Creation";
   document.getElementById("multiple-specific").style.display ="none";
   document.getElementById("multiple").style.display = "block";
-  document.getElementById("button_duplicate").style.display ='none';
   visible_show();
   if (document.getElementById("choice").checked){
     document.getElementById("choice").checked = false;
@@ -61,14 +60,6 @@ function calc()
   }
 }
 
-function duplicate()
-{
-  var action = $("#new_time_entry").attr("action");
-  $("#new_time_entry").attr("action", action.replace("easytt/edit/", "easytt/create/"));
-  $("#new_time_entry").attr("action", action.replace("easytt/multiple_create/", "easytt/create/"));
-  getElementById("new_time_entry").submit();
-}
-
 function edit(entry) {
   visible_show();
   setTimeout('', 4);
@@ -96,7 +87,6 @@ function edit(entry) {
   document.getElementById("id").value = entry.id;
   document.getElementById("multiple").style.display = "none";
   document.getElementById("multiple-specific").style.display ="none";
-  document.getElementById("button_duplicate").style.display ="block";
 }
 
 function showUserList(){

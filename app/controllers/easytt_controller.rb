@@ -78,7 +78,7 @@ class EasyttController < ApplicationController
             d2 = d2.next_day()
           else
             if(selec == "weekly")
-              d2 = d2.next_week()
+              d2 = d2 + 1.week
             else
               if(selec == "biweekly")
                 d2 = d2 + 2.week
