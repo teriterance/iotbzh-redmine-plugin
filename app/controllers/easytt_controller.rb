@@ -43,6 +43,7 @@ class EasyttController < ApplicationController
 
   ### Responce to route '/easytt/create'
   def create
+    puts 5
     @time_entry = TimeEntry.new(:project => @project, :issue => @issue, :user => User.current, :spent_on => User.current.today)
     @time_entry.safe_attributes = params[:time_entry]
     @time_entry.save
