@@ -54,7 +54,6 @@ function duplicate()
   action = action.split('/')
   action[2] = "create";
   $("#new_time_entry").attr("action", action.join('/'));
-  $('#id').remove();
   document.getElementById("new_time_entry").submit();
 }
 
