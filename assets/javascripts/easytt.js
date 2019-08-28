@@ -73,7 +73,7 @@ function calc()
 
 function edit(entry) {
   visible_show();
-  setTimeout('', 4);
+  setTimeout('', 5);
   var t = document.getElementById('select_view').value;
   if (!((t == "month") || (t == "workmonth"))){
     document.getElementById("floating-zone").style.position = 'initial';
@@ -85,6 +85,7 @@ function edit(entry) {
   action[2] = "edit";
   document.getElementById("time_entry_activity_id").value =entry.activity_id;
   $('#time_entry_project_id').val(entry.project_id); 
+  $('#time_entry_project_id').change();
   $('#time_entry_project_id').change();
   $("#new_time_entry").attr("action", action.join('/'));
   document.getElementsByClassName("typeForm")[0].innerHTML = "Edition";
@@ -130,4 +131,21 @@ function go_toDate(){
   if (a[7] !=""){
     window.location.href = a.join('/');
   }
+}
+
+function drag(ev, entry){
+  ev.dataTransfer.setData("entry", JSON.stringify(entry));
+}
+
+function drop(ev, date){
+  ev.preventDefault();
+  var entry = JSON.parse(ev.dataTransfer.getData("entry"));
+  var url = window.location.href;
+  var a = url.split('/');
+  a[4] = "drop_drag"
+  window.location.href = a.join('/')+'/'+entry.id.toString()+'/'+date;
+}
+
+function allowDrop(ev) {
+  ev.preventDefault();
 }
