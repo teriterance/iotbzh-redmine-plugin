@@ -119,7 +119,7 @@ module EasyttHelper
             html += \
             "\">\n" \
             "\t\t\t<div class=\"#{CSS_CALENDAR_DAY_HEADER}\">#{date.strftime("%Y-%m-%d")}</div>\n" \
-            "\t\t\t<div class=\"#{CSS_CALENDAR_DAY_CONTENT}\">\n"
+            "\t\t\t<div class=\"#{CSS_CALENDAR_DAY_CONTENT}\" ondrop='drop(event, "+date.strftime("%Y-%m-%d").to_json+")' ondragover='allowDrop(event)'>\n"
             
             total_hours = 0.0
             @datas.each { |entry|
@@ -130,7 +130,8 @@ module EasyttHelper
                         style = "easytt_timeslot_error"
                     end
                     total_hours += entry.hours
-                    html += "\t\t\t\t<div onclick='edit("+entry.to_json+")' class=\"easytt_timeslot " + style
+                    html += "\t\t\t\t<div draggable='true' ondragstart='drag(event, "+entry.to_json+")' onclick='edit("+entry.to_json+")' 
+                     class=\"easytt_timeslot " + style
                     html += "\" style=\"height: " + height + "px; line-height: " + height + "px;\">"
                     if @userid.to_i == @curent_userid
                     html += "<span class=\"localimage\"><a style=\"top: 0px;float:right;\" href=\"/easytt/delete/"+entry.id.to_s+return_url+"\" data-confirm=\"do you want to destroy this entry ?\"><img style = \"top: 0px; float:right;\" src= \"/images/delete.png\"> </a></span>"
