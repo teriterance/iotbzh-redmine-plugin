@@ -96,6 +96,14 @@ class EasyttController < ApplicationController
     redirect_to "/easytt/index/"+params[:userid]+"/"+params[:viewtype]+"/"+params[:refdate]
   end
 
+  ### Responce to route '/easytt/drop_drag/id/rdate'
+  def drop_drag
+    @time_entry =TimeEntry.find(params[:id])
+    @time_entry.spent_on = Date.parse(params[:rdate])
+    @time_entry.save
+    redirect_to "/easytt/index/"+params[:userid]+"/"+params[:viewtype]+"/"+params[:refdate]
+  end
+
   ### Responce to route '/easytt/edit/id/'
   def edit
     @time_entry =TimeEntry.find(params[:id])
