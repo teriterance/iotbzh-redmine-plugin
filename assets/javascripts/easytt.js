@@ -143,6 +143,7 @@ function drop(ev, date){
   var url = window.location.href;
   var a = url.split('/');
   a[4] = "drop_drag"
+  a[7] = a[7].replace('#','')
   window.location.href = a.join('/')+'/'+entry.id.toString()+'/'+date;
 }
 
